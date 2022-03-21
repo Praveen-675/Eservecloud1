@@ -7,6 +7,7 @@ import com.eservecloud.restapi.model.Address;
 import com.eservecloud.restapi.model.Student;
 import com.eservecloud.restapi.repository.StudentRepo;
 import com.eservecloud.restapi.service.StudentService;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
+//Curd repository
    /* @Override
     public Student saveStudent(StudentTo studentTo) {
         return studentRepo.save(studentTo);
@@ -49,11 +50,7 @@ public class StudentServiceImpl implements StudentService {
             throw new ResourceNotFoundException("Student","Id",id);
         }
     }*/
-    //Dto mapping
-    /*public StudentAddressTo saveStdentAddressTo(StudentAddressTo studentAddressTo){
-        return studentRepo.save(studentAddressTo);
-    }*/
-
+   //DTO Transactions
    @Override
    public String saveStudent(StudentTo studentTo) {
        Student student = new Student();
@@ -85,68 +82,20 @@ public class StudentServiceImpl implements StudentService {
    }
 
     @Override
-    public List<Student> getAllStudentTo() {
-        return studentRepo.findAll();
-    }
-
-
-
-   /* @Override
     public List<StudentTo> getAllStudentTo() {
-        Student student=new Student();
-        StudentTo studentTo=new StudentTo();
-       List<StudentTo> result=new Student()
-            result.get(1);
-            studentTo.setName(student.getName());
-            studentTo.setUsn(student.getUsn());
-            studentTo.setAge(student.getAge());
-
-        return studentTo;
-    }*/
-/*
-    public Integer getStudentToByID(Integer id) {
-        if(getAllStudentTo()!=null)
-        {
-            return getAllStudentTo();
-        }
-        else {
-            throw new ResourceNotFoundException("Student","Id",id);
-        }*/
-
-       /* StudentTo studentto=new StudentTo();
-        studentto.setName(studentTo.getName());
-        studentto.setAge(studentTo.getAge());
-        studentto.setUsn(studentTo.getUsn());
-        studentto.setStudentAddressList(studentTo.getStudentAddressList());
-        return studentTo;*/
-
-
-    }
-
-
-  /*  @Override
-    public List<StudentTo> getAllStudentTo() {
-        return null;
+        List<Student> student = studentRepo.findAll();
+        List<StudentTo> result = new ArrayList<>();
+        //Student To StudentTo conversion
+        List<StudentTo> variable = (List<StudentTo>) (List<?>) student;
+        return variable;
     }
 
     @Override
-    public StudentTo getStudentToByID(Integer id) {
+    public Integer getStudentToByID(Integer id) {
+       Student student= Mapper.map()
         return null;
     }
-   public List<StudentAddressTo> getAllStudentAddress(){
-        return studentRepo.findAll().stream().map(this::convertEntityToDto).collect(Collectors.toList());
-    }
-    public StudentAddressTo convertEntityToDto(Student student)
-    {
-        StudentTo studentto=new StudentTo();
-        studentto.setId(student.getId());
-        studentto.setName(student.getName());
-       studentto.setStudentAddressTo(student.getADdressto);
-       *//* studentto.setAdd1(student.getAddress().getAdd1());
-        studentto.setAdd1(student.getAddress().getAdd2());
-        studentto.setPinCode(student.getAddress().getPinCode());*//*
-        return studentto;
-    }
+}
 
-*/
+
 

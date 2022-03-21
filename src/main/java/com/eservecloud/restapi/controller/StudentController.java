@@ -20,24 +20,28 @@ public class StudentController {
     private StudentService studentService;
 
 
-
     public StudentController(StudentService studentService) {
         super();
         this.studentService = studentService;
     }
+
     //Build create student REST API
-   @PostMapping("/saveStudent")
-    public ResponseEntity<String> saveStudentTo(@RequestBody StudentTo studentTo){
-     return new ResponseEntity<String>(studentService.saveStudent(studentTo),HttpStatus.CREATED);
+    @PostMapping("/saveStudent")
+    public ResponseEntity<String> saveStudentTo(@RequestBody StudentTo studentTo) {
+        return new ResponseEntity<String>(studentService.saveStudent(studentTo), HttpStatus.CREATED);
     }
-/*@GetMapping()
-     public StudentTo getAllAddress(){
-    return  studentService.getAllStudentTo();
-}*/
-@GetMapping()
-public List<Student> getAllStudentTo() {
-    return studentService.getAllStudentTo();
-}
+
+    @GetMapping()
+    public List<StudentTo> getAllAddress() {
+        return studentService.getAllStudentTo();
+    }
+    @GetMapping("{id}")
+    public ResponseEntity<StudentTo> getStudentId( @PathVariable("id")Integer id)
+    {
+
+        return new ResponseEntity<StudentTo>(studentService.getStudentToByID(id),HttpStatus.OK);
+
+    }
 
 
    /* //Built get all student REST API
@@ -52,20 +56,5 @@ public List<Student> getAllStudentTo() {
         return new ResponseEntity<Student>(studentService.getStudentByID(id),HttpStatus.OK);
 
     }
-    //DTO mapping
-
-    StudentServiceImpl studentServiceImpl=new StudentServiceImpl();
-   *//* @PostMapping("/")
-    public ResponseEntity<StudentAddressTo> saveStudentAddressTo(@RequestBody StudentAddressTo studentAddressTo){
-        return  new ResponseEntity<StudentAddressTo>(studentServiceImpl.saveStudentAddressTo(), HttpStatus.CREATED);
-    }*//*
-     @GetMapping("/Student_location")
-   public List<StudentAddressTo> getAllStudentAddressTo(){
-         StudentServiceImpl studentServiceImpl=new StudentServiceImpl();
-         return studentServiceImpl.getAllStudentAddress();
-    }
-*/
-
-
-
+    */
 }

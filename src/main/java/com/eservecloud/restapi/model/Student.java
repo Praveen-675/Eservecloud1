@@ -19,14 +19,13 @@ public class Student {
     private  int id;
     @Column(name ="Student_Name", nullable=false, unique = true)
     private String name;
-    //@Column(name = "usn")
+    @Column(name = "usn")
     private String usn;
+    @Column(name = "age")
     private int age;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="pc_fid",referencedColumnName ="id")
     List<Address> address = new ArrayList<>();
-   /* @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Address_ID")
-    private Address address;*/
+
 
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface StudentService {
     String saveStudent(StudentTo studentTo);
-    List<Student>  getAllStudentTo();
-   // Integer getStudentToByID(Integer id);
+    List<StudentTo> getAllStudentTo();
+   Integer getStudentToByID(Integer id);
 }
