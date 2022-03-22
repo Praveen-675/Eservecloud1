@@ -6,7 +6,7 @@ import com.eservecloud.restapi.model.Student;
 import java.util.List;
 
 public interface StudentService {
-    String saveStudent(StudentTo studentTo);
+    String saveBulkStudent(List<StudentTo> studentTo);
     List<StudentTo> getAllStudentTo();
    Integer getStudentToByID(Integer id);
 }

@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class StudentTo {
-    private Integer id;
+    //private int id;
     private  String usn;
     private String name;
     private int age;
-    private List<StudentAddressTo> studentAddressList;
+    private List<AddressTo> studentAddressList;
 }
