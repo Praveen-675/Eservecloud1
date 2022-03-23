@@ -6,6 +6,7 @@ import com.eservecloud.restapi.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,13 +32,13 @@ public class StudentController {
     public List<StudentTo> getAllAddress() {
         return studentService.getAllStudentTo();
     }
-  /*  @GetMapping("/student/{id}")
-    public ResponseEntity<StudentTo> getStudentId(@PathVariable("id")Integer id)
+   @GetMapping("/student/{id}")
+    public ResponseEntity<List<StudentTo>> getStudentToByID(@PathVariable("id")Integer id)
     {
 
-        return new ResponseEntity<StudentTo>(studentService.getStudentToByID(id),HttpStatus.OK);
+        return new ResponseEntity<List<StudentTo>>(studentService.getStudentToByID(id),HttpStatus.OK);
 
-    }*/
+    }
 
 
    /* //Built get all student REST API

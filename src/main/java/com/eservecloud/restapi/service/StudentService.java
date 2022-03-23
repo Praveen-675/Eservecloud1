@@ -8,5 +8,5 @@ import java.util.List;
 public interface StudentService {
     String saveBulkStudent(List<StudentTo> studentTo);
     List<StudentTo> getAllStudentTo();
-   Integer getStudentToByID(Integer id);
+   List<StudentTo> getStudentToByID(Integer id);
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class Student {
     @Id  // used to mention this is a primary-key
     @GeneratedValue(strategy= GenerationType.IDENTITY)//@GeneratedValue it specifies generation strategies for the valve of primary keys
-    private  int id;
+    private  Integer id;
     @Column(name ="Student_Name", nullable=false, unique = true)
     private String name;
     @Column(name = "usn")
