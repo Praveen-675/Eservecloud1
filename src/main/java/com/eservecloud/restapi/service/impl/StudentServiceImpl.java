@@ -2,20 +2,17 @@ package com.eservecloud.restapi.service.impl;
 
 import com.eservecloud.restapi.dto.AddressTo;
 import com.eservecloud.restapi.dto.StudentTo;
+import com.eservecloud.restapi.exception.NoDataFoundException;
 import com.eservecloud.restapi.exception.ResourceNotFoundException;
 import com.eservecloud.restapi.model.Address;
 import com.eservecloud.restapi.model.Student;
 import com.eservecloud.restapi.repository.StudentRepo;
 import com.eservecloud.restapi.service.StudentService;
-import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -60,6 +57,7 @@ public class StudentServiceImpl implements StudentService {
             student.setName(studentTos.getName());
             student.setUsn(studentTos.getUsn());
             student.setAge(studentTos.getAge());
+            student.setEmail(studentTos.getEmail());
 
             // Get AddressTo from StudentTo
             List<Address> addressList = new ArrayList<>();
@@ -97,6 +95,7 @@ public class StudentServiceImpl implements StudentService {
             studentTo.setName(student.getName());
             studentTo.setAge(student.getAge());
             studentTo.setUsn(student.getUsn());
+            studentTo.setEmail(student.getEmail());
             // Getting Address List
             List<Address> studentAddressList = student.getAddress();
             List<AddressTo> addressToList = new ArrayList<>();
@@ -128,6 +127,7 @@ public class StudentServiceImpl implements StudentService {
         studentsById.setName(studentById.getName());
         studentsById.setUsn(studentById.getUsn());
         studentsById.setAge(studentById.getAge());
+        studentsById.setEmail(studentById.getEmail());
         List<Address> address=studentById.getAddress();
         AddressTo addressById=new AddressTo();
         List<AddressTo>  addressList=new ArrayList<>();
@@ -147,16 +147,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentTo> getByIdAndUsn(Integer id, String usn) {
-        Student studentById=studentRepo.getByIdAndUsn(id,usn);
-       // Student studentById=studentRepo.getById(id);
+    public List<StudentTo> getByUsn(String email, String usn) {
+        Student studentByUsn=studentRepo.getByUsn(usn);
+       // Student studentByUsn=studentRepo.getById(id);
         StudentTo studentsById=new StudentTo();
 
-        if (studentById != null) {
-            studentsById.setName(studentById.getName());
-            studentsById.setUsn(studentById.getUsn());
-            studentsById.setAge(studentById.getAge());
-            List<Address> address=studentById.getAddress();
+        if (email.equalsIgnoreCase(studentByUsn.getEmail())) {
+            studentsById.setName(studentByUsn.getName());
+            studentsById.setUsn(studentByUsn.getUsn());
+            studentsById.setAge(studentByUsn.getAge());
+            studentsById.setEmail(studentByUsn.getEmail());
+            List<Address> address=studentByUsn.getAddress();
             AddressTo addressById=new AddressTo();
             List<AddressTo>  addressList=new ArrayList<>();
             for (Address address1:address)
@@ -172,11 +173,13 @@ public class StudentServiceImpl implements StudentService {
             studentInfoById.add(studentsById);
             //studentInfoById.add(addressById);
             return studentInfoById;
-        } else {
-            throw new ResourceNotFoundException("ID","id",);
         }
 
+       else {
+            //throw new ResourceNotFoundException("Student","Email",email,"Given Email Is Not Matching");
+            throw new NoDataFoundException("No Data Found With given Email Address");
 
+        }
     }
 
    /* @Override

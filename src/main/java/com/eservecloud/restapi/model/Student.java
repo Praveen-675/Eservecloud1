@@ -19,10 +19,12 @@ public class Student {
     private  Integer id;
     @Column(name ="Student_Name", nullable=false, unique = true)
     private String name;
-    @Column(name = "usn")
+    @Column(name = "usn",unique = true)
     private String usn;
     @Column(name = "age")
     private int age;
+    @Column(name = "email",unique = true)
+    private String email;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="pc_fid",referencedColumnName ="id")
     List<Address> address = new ArrayList<>();

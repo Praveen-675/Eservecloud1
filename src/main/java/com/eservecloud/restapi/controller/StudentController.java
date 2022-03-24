@@ -2,11 +2,10 @@ package com.eservecloud.restapi.controller;
 
 
 import com.eservecloud.restapi.dto.StudentTo;
+import com.eservecloud.restapi.exception.ResourceNotFoundException;
 import com.eservecloud.restapi.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,15 +35,14 @@ public class StudentController {
    @GetMapping("/student/{id}")
     public ResponseEntity<List<StudentTo>> getStudentToByID(@PathVariable("id")Integer id )
     {
-
-        return new ResponseEntity<List<StudentTo>>(studentService.getStudentToByID(id),HttpStatus.OK);
-
+            return new ResponseEntity<List<StudentTo>>(studentService.getStudentToByID(id),HttpStatus.OK);
     }
-    @GetMapping("/student/{id}/{usn}")
-    public ResponseEntity<List<StudentTo>> getByIdAndUsn(@PathVariable("id")Integer id,@PathVariable("usn") String usn )
+
+    @GetMapping("/student/{email}/{usn}")
+    public ResponseEntity<List<StudentTo>> getByIdAndUsn(@PathVariable("email")String email,@PathVariable("usn") String usn )
     {
 
-        return new ResponseEntity<List<StudentTo>>(studentService.getByIdAndUsn(id,usn),HttpStatus.OK);
+        return new ResponseEntity<List<StudentTo>>(studentService.getByUsn(email,usn),HttpStatus.OK);
 
     }
     /* @GetMapping("/GetStudentByPhoneNumber/EmailId/{phoneNumber}/{emailId}")
