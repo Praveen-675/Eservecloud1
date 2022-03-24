@@ -7,7 +7,9 @@ import com.eservecloud.restapi.model.Address;
 import com.eservecloud.restapi.model.Student;
 import com.eservecloud.restapi.repository.StudentRepo;
 import com.eservecloud.restapi.service.StudentService;
+import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
@@ -112,6 +114,13 @@ public class StudentServiceImpl implements StudentService {
         return studentToList;
     }
 
+    /*@Override
+    public List<StudentTo> getStudentListByUsn(String usn) {
+        List<StudentTo> studentInfoByUsn=studentRepo.getUsn(usn);
+
+        return studentInfoByUsn;
+    }*/
+
     @Override
     public List<StudentTo> getStudentToByID(Integer id) {
         Student studentById=studentRepo.getById(id);
@@ -135,13 +144,37 @@ public class StudentServiceImpl implements StudentService {
         studentInfoById.add(studentsById);
         //studentInfoById.add(addressById);
         return studentInfoById;
+    }
 
+    @Override
+    public List<StudentTo> getByIdAndUsn(Integer id, String usn) {
+        Student studentById=studentRepo.getByIdAndUsn(id,usn);
+       // Student studentById=studentRepo.getById(id);
+        StudentTo studentsById=new StudentTo();
 
+        if (studentById != null) {
+            studentsById.setName(studentById.getName());
+            studentsById.setUsn(studentById.getUsn());
+            studentsById.setAge(studentById.getAge());
+            List<Address> address=studentById.getAddress();
+            AddressTo addressById=new AddressTo();
+            List<AddressTo>  addressList=new ArrayList<>();
+            for (Address address1:address)
+            {
 
-
-
-
-
+                addressById.setAdd1(address1.getAdd1());
+                addressById.setAdd2(address1.getAdd2());
+                addressById.setPinCode(address1.getPinCode());
+            }
+            List<StudentTo> studentInfoById=new ArrayList<>();
+            addressList.add(addressById);
+            studentsById.setStudentAddressList(addressList);
+            studentInfoById.add(studentsById);
+            //studentInfoById.add(addressById);
+            return studentInfoById;
+        } else {
+            throw new ResourceNotFoundException("ID","id",);
+        }
 
 
     }

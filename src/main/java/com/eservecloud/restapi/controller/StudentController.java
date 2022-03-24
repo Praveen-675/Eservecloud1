@@ -32,13 +32,26 @@ public class StudentController {
     public List<StudentTo> getAllAddress() {
         return studentService.getAllStudentTo();
     }
+
    @GetMapping("/student/{id}")
-    public ResponseEntity<List<StudentTo>> getStudentToByID(@PathVariable("id")Integer id)
+    public ResponseEntity<List<StudentTo>> getStudentToByID(@PathVariable("id")Integer id )
     {
 
         return new ResponseEntity<List<StudentTo>>(studentService.getStudentToByID(id),HttpStatus.OK);
 
     }
+    @GetMapping("/student/{id}/{usn}")
+    public ResponseEntity<List<StudentTo>> getByIdAndUsn(@PathVariable("id")Integer id,@PathVariable("usn") String usn )
+    {
+
+        return new ResponseEntity<List<StudentTo>>(studentService.getByIdAndUsn(id,usn),HttpStatus.OK);
+
+    }
+    /* @GetMapping("/GetStudentByPhoneNumber/EmailId/{phoneNumber}/{emailId}")
+    public StudentTo findStudentByPhoneNumberAndEmailId(@PathVariable(name="phoneNumber")Integer phoneNumber,@PathVariable(name = "emailId")String emailId)
+     {
+         return new ResponseEntity<StudentTo>(studentService.getStudentToByPhoneNumberAndEmailId(phoneNumber,emailId));
+     }*/
 
 
    /* //Built get all student REST API
