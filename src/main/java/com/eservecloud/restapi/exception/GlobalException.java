@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalException {
-    @ExceptionHandler
+    @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<ErrorObject> handleNoDataFoundException(NoDataFoundException ex)
     {
         ErrorObject eObject=new ErrorObject();

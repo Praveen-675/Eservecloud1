@@ -4,14 +4,18 @@ package com.eservecloud.restapi.controller;
 import com.eservecloud.restapi.dto.StudentTo;
 import com.eservecloud.restapi.exception.ResourceNotFoundException;
 import com.eservecloud.restapi.service.StudentService;
+import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/student")
+@Validated
 public class StudentController {
     private StudentService studentService;
 
@@ -39,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("/student/{email}/{usn}")
-    public ResponseEntity<List<StudentTo>> getByIdAndUsn(@PathVariable("email")String email,@PathVariable("usn") String usn )
+    public ResponseEntity<List<StudentTo>> getByIdAndUsn(@PathVariable("email")String email,@PathVariable("usn") @NotNull String usn )
     {
 
         return new ResponseEntity<List<StudentTo>>(studentService.getByUsn(email,usn),HttpStatus.OK);

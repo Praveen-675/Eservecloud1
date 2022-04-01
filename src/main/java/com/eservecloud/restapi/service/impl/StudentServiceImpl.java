@@ -177,7 +177,8 @@ public class StudentServiceImpl implements StudentService {
 
        else {
             //throw new ResourceNotFoundException("Student","Email",email,"Given Email Is Not Matching");
-            throw new NoDataFoundException("No Data Found With given Email Address");
+           throw new NoDataFoundException("No Data Found With given Email Address");
+
 
         }
     }
